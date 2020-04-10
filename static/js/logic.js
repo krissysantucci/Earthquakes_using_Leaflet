@@ -91,7 +91,7 @@ console.log(myCircles)
   var overlayMaps = {
     Earthquakes: earthquakes
   };
-
+//////////
   // Create our map, giving it the streetmap and earthquakes layers to display on load
   var myMap = L.map("map", {
       center: [
@@ -104,29 +104,20 @@ console.log(myCircles)
   // Create a layer control
   // Pass in our baseMaps and overlayMaps
   // Add the layer control to the map
-  L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(myMap);
-}
-
-
+//   L.control.layers(baseMaps, overlayMaps, {
+//     collapsed: false
+//   }).addTo(myMap);
+// }
   //legend
-  var myMap = L.map("map", {
-    center: [
-      37.09, -95.71
-    ],
-    zoom: 5,
-    layers: [streetmap, earthquakes, grayscale, outdoors]
-  });
-
 
   var info = L.control ({
     position: "bottomright"
   });
   
   // When the layer control is added, insert a div with the class of "legend"
-  info.onAdd = function(map) {
-      var div = L.DomUtil.create("div", "Info Legend");
+  
+  info.onAdd = function() {
+      var div = L.DomUtil.create("div", "legend");
       var mags = ["0-1", "1-2", "2-3", "3-4", "4-5", "5+"];
     
   var color = ["limegreen", "yellow", "gold", "darkorange", "red", "maroon"];
@@ -141,11 +132,11 @@ console.log(myCircles)
   // Add the info legend to the map
   info.addTo(myMap);
 
-  myMap.on("overlayadd", function(a) {
+  myMap.on("overlayadd", function() {
     info.addTo(myMap);
   });
 
-  myMap.on('overlayremove', function(a) {
+  myMap.on('overlayremove', function() {
     //Remove the legend
     myMap.removeControl(legend);
   });
@@ -154,7 +145,7 @@ console.log(myCircles)
 // Create a layer control
   // Pass in our baseMaps and overlayMaps
   // Add the layer control to the map
-  L.control.layers(baseMaps, overlayMaps, {
+  L.control.layers(baseMaps, overlayMaps, info, {
     collapsed: false
-  }).addTo(myMap);
-
+  }).addTo(myMap)
+}
